@@ -10,6 +10,8 @@ class Invoices
         $this->conn = $db;
     }
 
+
+    // Fetch all invoices.
     function fetchInvoice()
     {
         $query = "select * from $this->table_name";
@@ -19,6 +21,7 @@ class Invoices
 
     }
 
+    // Pay an invoice.
     function payInvoice($id, $data)
     {
         $sql = "SELECT amount, paid_amount FROM $this->table_name WHERE id = $id";
@@ -43,6 +46,7 @@ class Invoices
         }
     }
 
+    // Process overdue invoices.
     function processOverdueInvoices($data)
     {
         $sql = "SELECT id,amount, paid_amount FROM $this->table_name WHERE status = 'Pending'";
@@ -81,6 +85,7 @@ class Invoices
         return json_encode($creationArray);
     }
 
+    // Create a new invoice.
     public function createInvoice($details)
     {
         try {

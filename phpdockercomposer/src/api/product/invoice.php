@@ -16,6 +16,8 @@ class InvoiceAPI
         $this->obj = new Invoices($db);
     }
 
+
+    // Main method to handle incoming requests based on HTTP method.
     public function handleRequest()
     {
         switch ($_SERVER['REQUEST_METHOD']) {
@@ -32,6 +34,8 @@ class InvoiceAPI
         }
     }
 
+
+    // Handle GET request to fetch invoices.
     function handleGetRequest()
     {
         $stmt = $this->obj->fetchInvoice();
@@ -47,6 +51,8 @@ class InvoiceAPI
         }
     }
 
+
+    // Handle POST request for various actions (create, pay, process overdue).
     function handlePostRequest()
     {
         $invoiceId = isset($_GET['invoice_id']) ? $_GET['invoice_id'] : null;
@@ -62,6 +68,8 @@ class InvoiceAPI
         }
     }
 
+
+    // Handle payment action for a specific invoice.
     function handlePayments($invoiceId, $data)
     {
         $result = $this->obj->payInvoice($invoiceId, $data);
@@ -74,6 +82,8 @@ class InvoiceAPI
         }
     }
 
+
+    // Handle processing overdue invoices action.
     function handleProcessOverdue($data)
     {
         $result = $this->obj->processOverdueInvoices($data);
@@ -86,6 +96,8 @@ class InvoiceAPI
         }
     }
 
+
+    // Handle creation of a new invoice.
     function handleCreateInvoice($data)
     {
         if (empty($data['amount']) || ($data['amount'] == 0) || empty($data['due_date'])) {
